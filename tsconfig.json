@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "target": "es6",
+    "module": "CommonJS",
+    "lib": [
+      "es2015"
+    ],
+    "removeComments": true,
+    "outDir": "build",
+    "sourceMap": true,
+    "allowJs": true
+  },
+  "exclude": [
+    "node_modules",
+    "build"
+  ]
+}
