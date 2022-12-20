@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 import { validationResult } from 'express-validator'
-import userService from '../services/user.service'
-import { ApiError } from '../exceptions/api.error'
-import { ResponseTokenDto } from '../dtos/response-token.dto'
+import userService from '../services/user.service.js'
+import { ApiError } from '../exceptions/api.error.js'
+import { ResponseTokenDto } from '../dtos/response-token.dto.js'
 
 export const maxAge = 30 * 24 * 60 * 60 * 1000
 
@@ -13,7 +13,7 @@ class AuthController {
       if (!errors.isEmpty()) {
         return next(ApiError.BadRequest('Ошибка при валидации', errors.array()))
       }
-      const details = req['user'].details
+      const details = { ua: req.get('User-Agent'), ip: req.ip }
       const data = req.body
 
       const userData = await userService.register(data, details)
@@ -26,7 +26,7 @@ class AuthController {
 
   login = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const details = req['user'].details
+      const details = { ua: req.get('User-Agent'), ip: req.ip }
       const { username, password } = req.body
 
       const userData = await userService.login(username, password, details)
@@ -50,7 +50,7 @@ class AuthController {
 
   refresh = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const details = req['user'].details
+      const details = { ua: req.get('User-Agent'), ip: req.ip }
       const { refreshToken } = req.cookies
 
       const userData = await userService.refresh(refreshToken, details)

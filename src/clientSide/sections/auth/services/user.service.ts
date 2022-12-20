@@ -1,8 +1,8 @@
 import { compare, hash } from 'bcrypt'
-import User from '../schemas/user.schema'
-import tokenService from './token.service'
+import User from '../schemas/user.schema.js'
+import tokenService from './token.service.js'
 import { UserDto } from '../dtos/user.dto.js'
-import { ApiError } from '../exceptions/api.error'
+import { ApiError } from '../exceptions/api.error.js'
 
 interface Details {
   ua: string
@@ -10,7 +10,6 @@ interface Details {
 }
 
 class UserService {
-
   register = async (data, details: Details) => {
     const candidate = await User.findOne({ username: data.username })
     if (candidate) {

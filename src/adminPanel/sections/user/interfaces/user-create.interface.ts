@@ -1,4 +1,4 @@
-export interface IUser {
+export interface IUserCreate {
   username: string
   password: string
   fullName: string
@@ -6,5 +6,4 @@ export interface IUser {
   email: string
   department?: string
   accesses: string[]
-  role: string
 }
